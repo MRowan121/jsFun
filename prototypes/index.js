@@ -20,26 +20,42 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
-  orangePetNames() {
+  orangePetNames(petData) {
     // Return an array of just the names of kitties who are orange e.g.
         // ['Tiger', 'Snickers']
 
         /* CODE GOES HERE */
+        const orangePets = petData.filter((pet) => {
+          return pet.color === 'orange'
+        });
 
+        const orangePetNames = orangePets.map((pet) => {
+          return pet.name;
+        });
+
+        return orangePetNames;
     // Annotation:
-    // Write your annotation here as a comment
+    // search for only the orange cats (filter)
+      // will return array of 2 cat objects
+    // need to return array of two names (map)
   },
 
-  sortByAge() {
+  sortByAge(petData) {
     // Sort the kitties by their age
 
     /* CODE GOES HERE */
+    const sortedPets = petData.sort((a, b) => {
+      return b.age - a.age;
+    });
+
+    return sortedPets;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Need to sort() cat objects by the age property
+    // test file shows its oldest to youngest
   },
 
-  growUp() {
+  growUp(petData) {
     // Return an array of kitties who have all grown up by 2 years e.g.
     // [{
     //   name: 'Felicia',
@@ -54,6 +70,17 @@ const kittyPrompts = {
     // ...etc]
 
     /* CODE GOES HERE */
+    const agedPets = petData.map((pet) => {
+      return {...pet, age: pet.age + 2};
+    });
+
+    return agedPets;
+
+    // Annotation:
+    // Need to return a new array where all
+    // cats have been aged +2
+    // map() method will give us a copy of the original array
+    // use of the spread operator is needed to create copy of object and update its properties
   }
 };
 
@@ -121,11 +148,24 @@ const modPrompts = {
     //   { mod: 3, studentsPerInstructor: 10 },
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
-
+   
     /* CODE GOES HERE */
+    const editedMods = mods.map((mod) => {
+      return {...mod, studentsPerInstructor: mod.students/mod.instructors};
+    });
 
+    editedMods.forEach((mod) => {
+      delete mod.students;
+      delete mod.instructors;
+    });
+
+    return editedMods;
+    
     // Annotation:
-    // Write your annotation here as a comment
+    // Create an array of same length using map
+    // Need to create new property named studentsPerInstruc.
+        // Divide students value by instructors value (reduce?)
+    // 
   }
 };
 
@@ -157,9 +197,26 @@ const cakePrompts = {
     // ]
 
     /* CODE GOES HERE */
+    const cakeAssortment = cakes.map((cake) => {
+      return cake;
+    });
+
+    cakeAssortment.forEach((cake) => {
+      cake.flavor = cake.cakeFlavor;
+      delete cake.cakeFlavor;
+      delete cake.filling;
+      delete cake.frosting;
+      delete cake.toppings;
+    });
+
+    return cakeAssortment;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Need to return a mutated array of objects
+        // should only contain flavor and instock quant.
+    // Use map to copy the arrray
+    // Use for Each to access each object in the copy & delete extra props. 
+    // Need to update cakeFlavor name to flavor in copied array
   },
 
   onlyInStock() {
@@ -185,8 +242,11 @@ const cakePrompts = {
 
     /* CODE GOES HERE */
 
+
     // Annotation:
-    // Write your annotation here as a comment
+    // Need to return an array that only contains cakes with instock > 0
+    // Use filter to return a new array 
+
   },
 
   totalInventory() {
@@ -256,9 +316,11 @@ const classPrompts = {
     // ]
 
     /* CODE GOES HERE */
+    
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Create a new array of objects that contain FE
+    // Use filter to isolate those objects
   },
 
   totalCapacities() {
@@ -294,7 +356,7 @@ const classPrompts = {
 // DATASET: books from './datasets/books
 
 const bookPrompts = {
-  removeViolence() {
+  removeViolence(books) {
     // Your function should access the books data through a parameter (it is being passed as an argument in the test file)
     // return an array of all book titles that are not horror or true crime. Eg:
 
@@ -306,12 +368,30 @@ const bookPrompts = {
 
 
     /* CODE GOES HERE */
+  
+    const noHorror = books.filter((book) => {
+      return book.genre !== 'Horror'
+    });
+
+    const safeBooks = noHorror.filter((book) => {
+      return book.genre !== 'True Crime'
+    });
+
+    const safeTitles = safeBooks.map((book) => {
+      return book.title
+    });
+    
+    return safeTitles;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Function to access books array through a pramater
+    // return books that are not horror or true crime
+    // Maybe create a new array variable
+    // Set for each to look through original array
+    // if genre is not horror or true crime, push into new array?
 
   },
-  getNewBooks() {
+  getNewBooks(books) {
     // return an array of objects containing all books that were
     // published in the 90's and 00's. Inlucde the title and the year Eg:
 
@@ -320,9 +400,17 @@ const bookPrompts = {
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
     /* CODE GOES HERE */
+    const newAgeBooks = books.filter(book => book.published > 1989).map(book => {
+      return {title: book.title, year: book.published}
+    });
+
+    return newAgeBooks
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Write function to return title and year for books published in 90s and 00s
+    // Maybe use filter with logic
+        // If year is < 1990 exclude
+    // Use for each to remove the unneeded properties
   },
 
   getBooksByYear(books, year) {
@@ -336,9 +424,16 @@ const bookPrompts = {
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
     /* CODE GOES HERE */
+    const newAgeBooks = books.filter(book => book.published >= year).map(book => {
+      return {title: book.title, year: book.published}
+    });
+    
+    return newAgeBooks
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Return list of books that were published after specified year
+    // Return just the title and year
+    // modify function from previous problem to accomplish this.
   }
 
 };
