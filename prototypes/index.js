@@ -571,9 +571,25 @@ const breweryPrompts = {
     // 40
 
     /* CODE GOES HERE */
+    // const beerCount = breweries.reduce((total, brewery) => {
+    //   return total += brewery.beers.length
+    // });
+    // console.log(beerCount)
+    // return beerCount
+
+    const beerCount = breweries.map(brewery => brewery.beers.length).reduce((total, count) => {
+      return total += count
+    }, 0)
+
+    return beerCount
 
     // Annotation:
     // Write your annotation here as a comment
+    // nothing is being passed in during test
+    // breweries.beers is an array
+    // need to find length of each breweries.beer property and add them together
+    // map to create a new array of only length values
+    // reduce to combine into single value?
   },
 
   getBreweryBeerCount() {
@@ -586,9 +602,19 @@ const breweryPrompts = {
     // ]
 
     /* CODE GOES HERE */
+    const breweryList = breweries.map(brewery => {
+      return {name: brewery.name, beerCount: brewery.beers.length}
+    })
+    
+    return breweryList
 
     // Annotation:
     // Write your annotation here as a comment
+    // nothing is being passed in during test
+    // return array of obj
+    // each obj has name of brewery and beer count
+    // modify previous function?
+    // use map to create array of obj?
   },
 
   getSingleBreweryBeerCount(breweryName) {
@@ -598,9 +624,18 @@ const breweryPrompts = {
 
 
     /* CODE GOES HERE */
+    const breweryList = breweries.map(brewery => {
+      return {name: brewery.name, beerCount: brewery.beers.length}
+    })
+    const breweryCount = breweryList.find(brewery => brewery.name === breweryName)
+    return breweryCount.beerCount
 
     // Annotation:
     // Write your annotation here as a comment
+    // passing in brewery name as arg.
+    // need to return number of beers based on arg. value
+    // Bring down previous function
+    // Add find method to isolate the correct brewery?
   },
 
   findHighestAbvBeer() {
@@ -609,9 +644,18 @@ const breweryPrompts = {
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
     /* CODE GOES HERE */
+    const allBeers = breweries.flatMap(brewery => brewery.beers
+    )
+    const sortedBeers = allBeers.sort((a, b) => b.abv - a.abv)
+    return sortedBeers[0]
 
     // Annotation:
     // Write your annotation here as a comment
+    // nothing is being passed in as argument
+    // return obj with highest abv
+    // map all beers into a new array
+    // sort largest to smallest by abv
+    // return the 0 index
   }
 };
 
