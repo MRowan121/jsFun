@@ -316,7 +316,10 @@ const classPrompts = {
     // ]
 
     /* CODE GOES HERE */
-    
+    const feOnly = classrooms.filter(obj => {
+      return obj.program === 'FE'
+    })
+    return feOnly;
 
     // Annotation:
     // Create a new array of objects that contain FE
@@ -332,18 +335,37 @@ const classPrompts = {
     // }
 
     /* CODE GOES HERE */
+    const feCap = classrooms.filter(obj => obj.program === 'FE').reduce((total, obj) => {
+      total += obj.capacity
+      return total
+    }, 0)
+    const beCap = classrooms.filter(obj => obj.program === 'BE').reduce((total, obj) => {
+      total += obj.capacity
+      return total
+    }, 0)
+    const newObj = Object.create({feCapacity: feCap, beCapacity: beCap})
+    return newObj
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Nothing passed through as arg.
+    // Return new obj
+    // feCap : sum of all fe
+    // beCap: sum of all be
   },
 
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
     /* CODE GOES HERE */
+    const sortedList = classrooms.sort((a, b) => {
+      return a.capacity - b.capacity
+    })
+    return sortedList
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Nothing passed in as arg
+    // Need array sorted by capacty
+        // least to greatest
   }
 };
 
