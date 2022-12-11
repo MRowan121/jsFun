@@ -453,9 +453,19 @@ const weatherPrompts = {
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
     /* CODE GOES HERE */
-
+    const tempRange = weather.map((obj) => {
+      return obj.temperature
+    })
+    const avgTemp = tempRange.map((range) => {
+      return (range.high+range.low)/2
+    })
+    return avgTemp
     // Annotation:
-    // Write your annotation here as a comment
+    // Nothing passed in as arg.
+    // Need to return array of all average temps
+    // within each obj, need to avg high and low temps
+    // use map to create array of highs and lows
+    // map another array to calc avg
   },
 
   findSunnySpots() {
@@ -466,9 +476,16 @@ const weatherPrompts = {
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
     /* CODE GOES HERE */
+    const getSunnyPlaces = weather.filter(place => place.type.includes('sunny')).map(place => {
+      return `${place.location} is ${place.type}.`
+    })
+    return getSunnyPlaces
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Nothing passed in as arg
+    // Return interpolated statement
+      // if location type is sunny
+      // ${location} is ${sunny}.
   },
 
   findHighestHumidity() {
@@ -481,9 +498,17 @@ const weatherPrompts = {
     // }
 
     /* CODE GOES HERE */
+    const highHumidity = weather.sort((a, b) => {
+      return b.humidity - a.humidity
+    })
+    return highHumidity[0]
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Nothing being passed in as arg.
+    // Return location with highest humidity
+    // Sort all obj by humidity
+        //  high to low
+    // return index 0
 
   }
 };
