@@ -554,9 +554,17 @@ const nationalParksPrompts = {
     //}
 
     /* CODE GOES HERE */
-
+    const needParks = nationalParks.filter(park => park.visited === false).map(park => park.name)
+    const seenParks = nationalParks.filter(park => park.visited === true).map(park => park.name)
+    const newParkList = Object.create({parksToVisit: needParks, parksVisited: seenParks})
+    return newParkList
     // Annotation:
-    // Write your annotation here as a comment
+    // Nothing passed in
+    // Create a new array
+      // parksToVisit : array
+      // parksVisitied: array
+    // Use filter to store data in variables
+    // Use Object create to 
   },
 
   getParkInEachState() {
@@ -570,6 +578,15 @@ const nationalParksPrompts = {
 
 
     /* CODE GOES HERE */
+    const stateObj = nationalParks.reduce((obj, park) => {
+      if (!obj[park.location]) {
+        {obj[park.location] = park.name};
+      }
+      return obj
+    }, {})
+
+    console.log(stateObj)
+    return stateObj
 
     // Annotation:
     // Write your annotation here as a comment
