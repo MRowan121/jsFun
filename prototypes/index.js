@@ -198,18 +198,10 @@ const cakePrompts = {
 
     /* CODE GOES HERE */
     const cakeAssortment = cakes.map((cake) => {
-      return cake;
+      return {flavor: cake.cakeFlavor, inStock: cake.inStock}
     });
-
-    cakeAssortment.forEach((cake) => {
-      cake.flavor = cake.cakeFlavor;
-      delete cake.cakeFlavor;
-      delete cake.filling;
-      delete cake.frosting;
-      delete cake.toppings;
-    });
-
-    return cakeAssortment;
+    
+    return cakeAssortment
 
     // Annotation:
     // Need to return a mutated array of objects
@@ -241,7 +233,9 @@ const cakePrompts = {
     // ]
 
     /* CODE GOES HERE */
+    const inStockOnly = cakes.filter(obj => obj.inStock > 0)
 
+    return inStockOnly
 
     // Annotation:
     // Need to return an array that only contains cakes with instock > 0
@@ -254,6 +248,12 @@ const cakePrompts = {
     // 59
 
     /* CODE GOES HERE */
+    const totalInv = cakes.reduce((total, sum) => {
+      total += sum.inStock
+      return total
+    }, 0)
+
+    return totalInv
 
     // Annotation:
     // Write your annotation here as a comment
@@ -265,6 +265,11 @@ const cakePrompts = {
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
     /* CODE GOES HERE */
+    const toppingsArray = cakes.flatMap(obj => obj.toppings)
+    
+    const noDups = [... new Set(toppingsArray)]
+    
+    return noDups
 
     // Annotation:
     // Write your annotation here as a comment
@@ -282,6 +287,7 @@ const cakePrompts = {
     // }
 
     /* CODE GOES HERE */
+  
 
     // Annotation:
     // Write your annotation here as a comment
@@ -578,16 +584,21 @@ const nationalParksPrompts = {
 
 
     /* CODE GOES HERE */
-    const stateObj = nationalParks.reduce((obj, park) => {
-      if (!obj[park.location]) {
-        {obj[park.location] = park.name};
-      }
-      return obj
-    }, {})
+    // const stateObj = nationalParks.reduce((obj, park) => {
+    //   if (!obj[park.location]) {
+    //     obj[park.location] = park.name;
+    //   }
+    //   return obj
+    // }, {})
 
-    console.log(stateObj)
-    return stateObj
+    // console.log(stateObj)
+    // return stateObj
 
+    const parkArray = nationalParks.map(obj => {
+      return {[obj.location]: obj.name}
+    })
+    return parkArray
+     
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -609,6 +620,10 @@ const nationalParksPrompts = {
     //   'rock climbing' ]
 
     /* CODE GOES HERE */
+    const parkActivityList = nationalParks.flatMap(obj => obj.activities)
+    const parkActivities = [... new Set(parkActivityList)]
+
+    return parkActivities
 
     // Annotation:
     // Write your annotation here as a comment
