@@ -287,7 +287,7 @@ const cakePrompts = {
     // }
 
     /* CODE GOES HERE */
-  
+    
 
     // Annotation:
     // Write your annotation here as a comment
@@ -754,6 +754,7 @@ const boardGamePrompts = {
     // ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
 
     /* CODE GOES HERE */
+    
 
     // Annotation:
     // Write your annotation here as a comment
